@@ -41,30 +41,39 @@ export class ProductsComponent implements OnInit {
       }
     )
   }
+
   createProduct(product: CreateProductDto){
-    this.productService.store(product).subscribe(
-      response =>{
-        console.log(response);
-      }
-    )
-  }
-  updateProduct(id: ProductModel['id'], product:UpdateProductDto){
-    this.productService.update(id, product).subscribe(
-      response =>{
-        console.log(response);
-      }
-    )
-  }
+    const data = {
+      title: 'Cocinas',
+      price: 1100,
+      description: '6 quemadores / Jinson Medina',
+      images: [
+        'https://norte.dico.com.mx/media/catalog/product/cache/ddfdab190e55251eefb307178e423bf7/s/a/sala-modular-capital-calabaza-moderno-decorado-sal20754s1-2_1.jpg',
+      ],
+      categoryId: 1,
+    };
+    this.productService.store(data).subscribe(
+      response=>{
+        console.log(response)})
+   }
   editProduct(){
     this.selectedProduct = {title:'', price:0, description:''};
   }
   
-  deleteProduct(id: ProductModel['id']){
+  updateProduct(){
+    const data = {
+      title: 'pc gaming',
+      price: 1800,
+      description: 'rgba rtx / Jinson Medina',
+    };
+    this.productService.update(86,data).subscribe(
+      response => {
+        console.log(response)})
+   }
+   deleteProduct(id:ProductModel['id']){
     this.productService.destroy(id).subscribe(
-      response =>{
-        this.products = this.products.filter(product => product.id != id); 
-        console.log(response);
-      }
-    )
-  }
+      response => {
+        this.products= this.products.filter(product => product.id != id);
+        console.log(response)})
+   }
 }
